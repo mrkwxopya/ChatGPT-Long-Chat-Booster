@@ -83,9 +83,7 @@ After uploading the script to GitHub, open the raw `.user.js` file in your brows
 
 Example:
 
-```text
-https://raw.githubusercontent.com/mrkwxopya/chatgpt-long-chat-booster/main/chatgpt-long-chat-booster.user.js
-```
+[https://raw.githubusercontent.com/mrkwxopya/chatgpt-long-chat-booster/main/chatgpt-long-chat-booster.user.js](https://raw.githubusercontent.com/mrkwxopya/chatgpt-long-chat-booster/main/chatgpt-long-chat-booster.user.js)
 
 Tampermonkey should detect it automatically and show the install screen.
 
@@ -95,9 +93,7 @@ Tampermonkey should detect it automatically and show the install screen.
 
 After publishing on GreasyFork, add the GreasyFork script link here:
 
-```text
-[[https://greasyfork.org/scripts/YOUR_SCRIPT_ID-chatgpt-long-chat-booster](https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster)](https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster)
-```
+[https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster](https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster)
 
 ---
 
