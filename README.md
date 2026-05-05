@@ -2,25 +2,33 @@
 
 A lightweight Tampermonkey userscript that improves browser-side performance in long ChatGPT conversations.
 
-It works by reducing the rendering load of very long chats. Older messages can be collapsed automatically, large code blocks and tables can be compacted, animations can be reduced, and heavy media elements can be optimized.
+It reduces the rendering load of long chats by collapsing older messages, compacting heavy code blocks and tables, reducing animation cost, and optimizing media rendering.
 
 Created by **mrkwxopya**.
 
 ---
 
+## Links
+
+- GitHub: https://github.com/mrkwxopya/ChatGPT-Long-Chat-Booster/
+- GreasyFork: https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster
+
+---
+
 ## Features
 
-- Automatically collapses old messages
+- Automatically collapses older messages
 - Keeps recent messages visible
 - Compact mode for old code blocks
 - Compact mode for old tables
 - Media rendering optimization
 - Animation reduction
-- Sidebar optimization
+- Sidebar rendering optimization
 - Aggressive Mode for very long conversations
 - Scroll-aware throttling
 - URL change detection
-- Alt + B shortcut
+- Keyboard shortcuts
+- Local settings persistence
 - No external requests
 - No message automation
 - No backend modification
@@ -33,11 +41,12 @@ ChatGPT Long Chat Booster only optimizes the local browser interface.
 
 It can help when:
 
-- A conversation has become very long
-- The page scrolls slowly
-- Code-heavy conversations start lagging
-- Large markdown tables make the page feel heavy
+- A conversation becomes very long
+- Scrolling starts to feel slow
+- Code-heavy conversations cause lag
+- Large markdown tables make the page heavy
 - The browser uses too much CPU while viewing old chats
+- The ChatGPT page feels slower after many messages
 
 ---
 
@@ -59,7 +68,31 @@ It is only a local UI performance helper.
 
 ## Installation
 
-### Option 1: Install with Tampermonkey
+### Option 1: Install from GreasyFork
+
+Open the GreasyFork page and click **Install this script**:
+
+```text
+https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster
+```
+
+Tampermonkey should detect the script automatically and show the install screen.
+
+---
+
+### Option 2: Install from GitHub Raw
+
+Open the raw `.user.js` file in your browser:
+
+```text
+https://raw.githubusercontent.com/mrkwxopya/ChatGPT-Long-Chat-Booster/main/chatgpt-long-chat-booster.user.js
+```
+
+Tampermonkey should detect it automatically and show the install screen.
+
+---
+
+### Option 3: Manual Tampermonkey Install
 
 1. Install the Tampermonkey browser extension.
 2. Create a new userscript.
@@ -77,26 +110,6 @@ https://chat.openai.com/*
 
 ---
 
-### Option 2: Install from GitHub Raw
-
-After uploading the script to GitHub, open the raw `.user.js` file in your browser.
-
-Example:
-
-[https://raw.githubusercontent.com/mrkwxopya/chatgpt-long-chat-booster/main/chatgpt-long-chat-booster.user.js](https://raw.githubusercontent.com/mrkwxopya/chatgpt-long-chat-booster/main/chatgpt-long-chat-booster.user.js)
-
-Tampermonkey should detect it automatically and show the install screen.
-
----
-
-### Option 3: Install from GreasyFork
-
-After publishing on GreasyFork, add the GreasyFork script link here:
-
-[https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster](https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster)
-
----
-
 ## Usage
 
 After installation, open ChatGPT.
@@ -107,7 +120,7 @@ From the panel, you can:
 
 - Enable or disable the booster
 - Choose how many recent messages stay open
-- Enable Aggressive Mode
+- Enable or disable Aggressive Mode
 - Compact old code blocks
 - Compact old tables
 - Reduce media rendering cost
@@ -154,9 +167,9 @@ Pause while scrolling: On
 
 | Shortcut | Action |
 |---|---|
-| `Alt + B` | Enable / disable booster |
-| `Alt + [` | Decrease recent open message count |
-| `Alt + ]` | Increase recent open message count |
+| `Alt + B` | Enable or disable the booster |
+| `Alt + [` | Decrease the recent open message count |
+| `Alt + ]` | Increase the recent open message count |
 
 ---
 
@@ -166,13 +179,13 @@ Pause while scrolling: On
 
 Normal Mode is the safer default mode.
 
-It keeps the latest messages open and collapses older messages. It also applies light rendering optimizations to code blocks, tables, media, and animations.
+It keeps the latest messages open and collapses older messages. It also applies light rendering optimizations to code blocks, tables, media, animations, and the sidebar.
 
 ### Aggressive Mode
 
 Aggressive Mode is designed for extremely long conversations.
 
-It applies stronger limits to old code blocks, tables, and media elements. This can improve performance more, but old content may appear more compact until opened again.
+It applies stronger limits to old code blocks, tables, and media elements. This can improve performance more, but older content may appear more compact until opened again.
 
 ---
 
@@ -187,6 +200,7 @@ It:
 - Does not contact external APIs
 - Does not collect chat content
 - Does not store conversations
+- Does not modify messages
 
 Settings are stored locally in your browser using `localStorage`.
 
@@ -206,18 +220,18 @@ It does not require special Tampermonkey permissions.
 
 ## Browser Support
 
-Recommended:
+Recommended browsers:
 
 - Google Chrome
 - Microsoft Edge
 - Brave
 - Firefox
 
-Required extension:
+Supported userscript managers:
 
 - Tampermonkey
 - Violentmonkey
-- Greasemonkey-compatible userscript manager
+- Greasemonkey-compatible managers
 
 ---
 
@@ -265,15 +279,15 @@ Recommended values:
 
 ---
 
-### Old messages are hidden
+### Older messages are collapsed
 
 Click a collapsed message to open it.
 
-Use **Pin temizle** / **Clear pins** to let the booster collapse it again.
+Use **Clear Pins** to allow the booster to collapse opened messages again.
 
 ---
 
-### Page still feels slow
+### The page still feels slow
 
 Try enabling:
 
@@ -283,18 +297,19 @@ Compact code blocks
 Compact tables
 Media optimization
 Reduce animations
+Sidebar optimization
 ```
 
 Also try lowering the recent open message count.
 
 ---
 
-## File Structure
+## Repository Structure
 
 Recommended repository structure:
 
 ```text
-chatgpt-long-chat-booster/
+ChatGPT-Long-Chat-Booster/
 ├─ chatgpt-long-chat-booster.user.js
 ├─ README.md
 ├─ LICENSE
@@ -334,6 +349,18 @@ GitHub:
 
 ```text
 https://github.com/mrkwxopya
+```
+
+Project repository:
+
+```text
+https://github.com/mrkwxopya/ChatGPT-Long-Chat-Booster/
+```
+
+GreasyFork:
+
+```text
+https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster
 ```
 
 ---
