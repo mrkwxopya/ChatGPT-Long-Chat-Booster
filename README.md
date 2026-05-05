@@ -96,7 +96,7 @@ Tampermonkey should detect it automatically and show the install screen.
 After publishing on GreasyFork, add the GreasyFork script link here:
 
 ```text
-https://greasyfork.org/scripts/YOUR_SCRIPT_ID-chatgpt-long-chat-booster
+[https://greasyfork.org/scripts/YOUR_SCRIPT_ID-chatgpt-long-chat-booster](https://greasyfork.org/en/scripts/576699-chatgpt-long-chat-booster)
 ```
 
 ---
