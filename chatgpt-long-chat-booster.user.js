@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         ChatGPT Long Chat Booster
 // @namespace    https://github.com/mrkwxopya
-// @version      2.0.0
-// @description  Long ChatGPT conversations için eski mesajları, kod bloklarını, tabloları ve medya öğelerini optimize ederek arayüz kasmasını azaltır.
+// @version      2.0.1
+// @description  Improves browser-side performance in long ChatGPT conversations by optimizing older messages, code blocks, tables, media, animations, and sidebar rendering.
 // @author       mrkwxopya
 // @license      MIT
-// @homepageURL  https://github.com/mrkwxopya/chatgpt-long-chat-booster
-// @supportURL   https://github.com/mrkwxopya/chatgpt-long-chat-booster/issues
+// @homepageURL  https://github.com/mrkwxopya/ChatGPT-Long-Chat-Booster/
+// @supportURL   https://github.com/mrkwxopya/ChatGPT-Long-Chat-Booster/issues
 // @match        https://chatgpt.com/*
 // @match        https://chat.openai.com/*
 // @run-at       document-idle
@@ -94,7 +94,6 @@
         [
           'button[data-testid="stop-button"]',
           'button[aria-label*="Stop"]',
-          'button[aria-label*="Durdur"]',
           'button[aria-label*="Regenerate"]'
         ].join(",")
       )
@@ -393,7 +392,7 @@
       <div class="cgb-head">
         <div>
           <div class="cgb-title">ChatGPT Booster</div>
-          <div class="cgb-version">v2.0.0 · mrkwxopya</div>
+          <div class="cgb-version">v2.0.1 · mrkwxopya</div>
         </div>
         <button class="cgb-btn" data-cgb-action="minimize">—</button>
       </div>
@@ -401,11 +400,11 @@
       <div class="cgb-body">
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="enabled">
-          Aktif
+          Enabled
         </label>
 
         <div class="cgb-row">
-          <span>Son açık mesaj</span>
+          <span>Recent open messages</span>
           <input class="cgb-input" type="number" min="6" max="80" step="2" data-cgb-field="keepTurns">
         </div>
 
@@ -418,49 +417,49 @@
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="compactCode">
-          Eski kod bloklarını kısalt
+          Compact old code blocks
         </label>
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="compactTables">
-          Eski tabloları kısalt
+          Compact old tables
         </label>
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="mediaLightMode">
-          Medya yükünü azalt
+          Reduce media load
         </label>
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="reduceMotion">
-          Animasyonları azalt
+          Reduce animations
         </label>
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="optimizeSidebar">
-          Sidebar optimizasyonu
+          Optimize sidebar
         </label>
 
         <label class="cgb-check">
           <input type="checkbox" data-cgb-field="pauseWhileScrolling">
-          Scroll sırasında bekle
+          Pause while scrolling
         </label>
 
         <div class="cgb-separator"></div>
 
         <div class="cgb-grid">
-          <button class="cgb-btn" data-cgb-action="toggleOld">Eskiyi aç/kapat</button>
-          <button class="cgb-btn" data-cgb-action="clearPins">Pin temizle</button>
-          <button class="cgb-btn cgb-btn-primary" data-cgb-action="bottom">Alta git</button>
-          <button class="cgb-btn" data-cgb-action="apply">Yenile</button>
+          <button class="cgb-btn" data-cgb-action="toggleOld">Toggle old messages</button>
+          <button class="cgb-btn" data-cgb-action="clearPins">Clear pins</button>
+          <button class="cgb-btn cgb-btn-primary" data-cgb-action="bottom">Go to bottom</button>
+          <button class="cgb-btn" data-cgb-action="apply">Refresh</button>
         </div>
 
-        <button class="cgb-btn cgb-btn-danger" data-cgb-action="reset">Ayarları sıfırla</button>
+        <button class="cgb-btn cgb-btn-danger" data-cgb-action="reset">Reset settings</button>
 
-        <div class="cgb-muted" data-cgb-status>Hazır.</div>
+        <div class="cgb-muted" data-cgb-status>Ready.</div>
 
         <div class="cgb-muted">
-          Kısayol: Alt + B aktif/pasif · Alt + [ / ] mesaj sayısı
+          Shortcuts: Alt + B toggle · Alt + [ / ] message count
         </div>
       </div>
     `;
@@ -548,11 +547,11 @@
     const roleNode = turn.querySelector("[data-message-author-role]");
     const role = roleNode?.getAttribute("data-message-author-role");
 
-    if (role === "user") return "Sen";
+    if (role === "user") return "You";
     if (role === "assistant") return "ChatGPT";
     if (role) return role;
 
-    return "Mesaj";
+    return "Message";
   }
 
   function getSnippet(turn) {
@@ -560,7 +559,7 @@
       .replace(/\s+/g, " ")
       .trim();
 
-    if (!text) return "Katlanmış mesaj";
+    if (!text) return "Collapsed message";
 
     return text.length > 96 ? `${text.slice(0, 96)}…` : text;
   }
@@ -571,7 +570,7 @@
 
     turn.classList.add("cgb-collapsed");
     turn.setAttribute("data-cgb-label", `#${index + 1} ${role}: ${snippet}`);
-    turn.setAttribute("title", "Açmak için tıkla");
+    turn.setAttribute("title", "Click to open");
     turn.setAttribute("aria-expanded", "false");
   }
 
@@ -616,7 +615,7 @@
           expandTurn(turn);
         });
 
-        setStatus("Booster pasif.");
+        setStatus("Booster disabled.");
         return;
       }
 
@@ -640,7 +639,7 @@
 
       const mode = settings.aggressiveMode ? "Aggressive" : "Normal";
 
-      setStatus(`${mode}: ${turns.length} mesaj, ${collapsedCount} katlandı.`);
+      setStatus(`${mode}: ${turns.length} messages, ${collapsedCount} collapsed.`);
     } finally {
       isApplying = false;
     }
@@ -664,7 +663,7 @@
 
         collapsedTurn.dataset.cgbPinned = "1";
         expandTurn(collapsedTurn);
-        setStatus("Mesaj açıldı. Tekrar katlamak için Pin temizle.");
+        setStatus("Message opened. Use Clear pins to collapse it again.");
       },
       true
     );
