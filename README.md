@@ -333,6 +333,14 @@ ChatGPT-Long-Chat-Booster/
 - Added improved ChatGPT message detection
 - Added safer MutationObserver throttling
 
+### v2.0.1
+
+- Translated all visible UI labels to English
+- Translated metadata description to English
+- Translated status messages to English
+- Translated collapsed message labels to English
+- Updated homepage and support links
+
 ---
 
 ## License
